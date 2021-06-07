@@ -1,0 +1,60 @@
+@mixin neumorphism($form: "convex", $background, $distance, $blur: null, $boxShadow: true, $borderSize: 1px) {
+    $highlight: saturate(lighten($background, 2%), 10%);
+    $lowlight: desaturate(darken($background, 4%), 20%);
+    $shadowhigh: saturate(lighten($background, 6%), valueminmax(10%, 10, 20));
+    $shadowlow: desaturate(darken($background, 8%), valueminmax(20%, 10, 50));
+    $inset: "";
+    $blurValue: $distance * 2;
+    //Background color
+    @if ($form=="flat" or $form=="pressed") {
+        background: $background;
+    }
+    @else if ($form=="concave") {
+        background: linear-gradient(145deg, $lowlight, $highlight);
+    }
+    @else if ($form=="convex" or $form=="bordered") {
+        background: linear-gradient(145deg, $highlight, $lowlight);
+    }
+    //Inset shadow
+    @if ($form=="pressed") {
+        $inset: "inset";
+    }
+    //Blur
+    @if ($blur) {
+        $blurValue: $blur;
+    }
+
+    @if($boxShadow){
+        @if($form=="bordered"){
+            $highlight: lighten($highlight, 4%);
+            $lowlight: transparentize(darken($lowlight, 10%), 0.2);
+            box-shadow: #{$distance / 2} $distance #{$distance * 2.5} $lowlight, 
+            #{$distance / -4} #{$distance / -4} #{$distance / 2} transparentize($highlight, 0.3), 
+            inset #{$distance * -1.5} #{$distance * -2} #{$distance * 3} transparentize($highlight, 0.7), 
+            inset #{$distance / 2} #{$distance / 1.2} $distance transparentize($lowlight, 0.2);
+            border: $borderSize $background solid;
+        }@else{
+            box-shadow: #{$inset} $distance $distance $blurValue $shadowlow,
+            #{$inset} #{$distance * -1} #{$distance * -1} $blurValue $shadowhigh;
+        }
+    }
+}
+
+@mixin neumorphism-secondary($form: "convex", $background, $distance, $boxShadow: true) {
+    $highlight: saturate(lighten($background, 2%), 10%);
+    $lowlight: desaturate(darken($background, 4%), 20%);
+    $shadowhigh: saturate(lighten($background, 6%), valueminmax(10%, 10, 20));
+    $shadowlow: desaturate(darken($background, 8%), valueminmax(20%, 10, 50));
+
+    @if ($form=="concave") {
+        background: linear-gradient(120deg, desaturate(lighten($background, 18%), 25%) 10%, desaturate(lighten($background, 13%), 20%) 60%, desaturate(lighten($background, 8%), 10%) 100%);
+    }
+    @if($boxShadow){
+        box-shadow: inset $distance #{$distance * 1.5} #{$distance * 2} transparentize(desaturate(opacify($background, 0.2), 20%), 0.5);
+    }
+}
+
+@function valueminmax($value, $min, $max) {
+    $pendiente: ($max - $min) / 100;
+    @return ($pendiente * $value)+$min;
+}

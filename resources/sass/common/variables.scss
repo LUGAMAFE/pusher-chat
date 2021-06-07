@@ -1,0 +1,36 @@
+$mobile-xs: 250px;
+$mobile-s: 320px;
+$mobile-m: 375px;
+$mobile-l: 480px;
+$tablet-s: 640px;
+$tablet-m: 720px;
+$tablet-l: 950px;
+$laptop-s: 1024px;
+$laptop-m: 1100px;
+$laptop-l: 1250px;
+$pc-s: 1440px;
+$pc-m: 1920px;
+$pc-xl: 2560px;
+$min_width: 320px;
+$max_width: 1200px;
+
+$base-color: #eff1f6;
+$blue-color: #218ef3;
+$lighten-blue-color: #9ecdf3;
+$yellow-color: #ffb707;
+
+$white-color: #FFFFFF;
+$black-color: #21242b;
+$gray-color: #626a76;
+$sweet-gray-color: #b8b8b8;
+$light-gray-color: #F5F7FA;
+
+
+:root {
+    --white-color: #{$white-color};
+    --black-color: #{$black-color};
+    --gray-color: #{$gray-color};
+    --light-gray-color: #{$light-gray-color};
+    --sweet-gray-color: #{$sweet-gray-color};
+    --blue-color: #{$blue-color};
+}
